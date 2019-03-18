@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     # Local
     'Todoes.apps.TodoesConfig',
-    'Authentication.apps.AuthenticationConfig'
+    'Authentication.apps.AuthenticationConfig',
+    'Profiles.apps.ProfilesConfig'
 ]
 
 MIDDLEWARE = [

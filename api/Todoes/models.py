@@ -1,5 +1,5 @@
 from django.db import models
-from django.conf import settings # For getting current active user model.
+from Profiles.models import Profile
 
 class TodoStatus(models.Model):
     status_name = models.CharField(max_length=30)
@@ -7,8 +7,8 @@ class TodoStatus(models.Model):
 class TodoBoard(models.Model):
     title = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+    profile = models.ForeignKey(
+        Profile,
         on_delete=models.CASCADE,
         related_name='boards'
     )

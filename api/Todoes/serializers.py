@@ -11,11 +11,11 @@ class TodoStatusSerializer(serializers.ModelSerializer):
         fields = ('id', 'status_name')
 
 class TodoBoardSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    profile = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = TodoBoard
-        fields = ('id', 'title', 'created_at', 'user')
+        fields = ('id', 'title', 'created_at', 'profile')
 
 class TodoSerializer(serializers.ModelSerializer):
     board = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
