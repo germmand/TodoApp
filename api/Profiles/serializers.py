@@ -4,10 +4,12 @@ from Profiles.models import Profile
 class ProfileSerializer(serializers.ModelSerializer):
     boards = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     image = serializers.SerializerMethodField()
+    first_name = serializers.CharField(max_length=150, allow_blank=True)
+    last_name  = serializers.CharField(max_length=150, allow_blank=True)
     
     class Meta:
         model = Profile
-        fields = ('bio', 'image', 'boards')
+        fields = ('bio', 'image', 'first_name', 'last_name', 'boards')
 
     def get_image(self, obj):
         if obj.image:

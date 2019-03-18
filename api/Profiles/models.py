@@ -10,3 +10,5 @@ class Profile(models.Model):
     )
     bio = models.TextField(blank=True, default='')
     image = models.URLField(blank=True, default='')
+    first_name = models.CharField(max_length=150, blank=True, default='')
+    last_name  = models.CharField(max_length=150, blank=True, default='')
