@@ -17,6 +17,15 @@ class TodoBoardSerializer(serializers.ModelSerializer):
         model = TodoBoard
         fields = ('id', 'title', 'created_at', 'profile')
 
+    def create(self, validated_data):
+        profile = self.context.get('profile', None)
+        if profile is None:
+            raise serializers.ValidationError(
+                'No profile provided for this board.'
+            )
+        board = TodoBoard.objects.create(profile=profile, **validated_data)
+        return board
+
 class TodoSerializer(serializers.ModelSerializer):
     board = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     status = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
