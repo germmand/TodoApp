@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from Todoes.permissions import IsAdminOrReadOnly
 from rest_framework import (
     viewsets, 
     generics
@@ -16,5 +18,7 @@ from Todoes.models import (
 )
 
 class TodoStatusesViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticatedOrReadOnly,
+                          IsAdminOrReadOnly,)
     queryset = TodoStatus.objects.all()
     serializer_class = TodoStatusSerializer
