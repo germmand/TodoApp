@@ -21,4 +21,5 @@ urlpatterns = [
 
     path('api/v1/', include('Authentication.urls')),
     path('api/v1/', include('Profiles.urls')),
+    path('api/v1/', include('Todoes.urls'))
 ]
