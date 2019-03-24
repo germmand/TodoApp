@@ -77,3 +77,32 @@ class TodoListCreateAPIView(generics.ListCreateAPIView):
         todoes = self.get_queryset().filter(board__id=board_id)
         serializer = self.serializer_class(todoes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class TodoDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,
+                          OnlyOwnerCanAlterBoard)
+    queryset = Todo.objects.select_related('board')
+    serializer_class = TodoSerializer
+
+    def retrieve(self, request, board_id, todo_id, *args, **kwargs):
+        todo = self.get_todo(board_id, todo_id)
+        serializer = self.serializer_class(todo)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def update(self, request, board_id, todo_id, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        todo = self.get_todo(board_id, todo_id)
+        serializer = self.get_serializer(todo, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def destroy(self, request, board_id, todo_id, *args, **kwargs):
+        todo = self.get_todo(board_id, todo_id)
+        self.perform_destroy(todo)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def get_todo(self, board_id, todo_id):
+        board_todoes = self.get_queryset().filter(board__id=board_id)
+        todo = board_todoes.get(id=todo_id)
+        return todo
