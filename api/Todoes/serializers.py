@@ -33,3 +33,17 @@ class TodoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Todo
         fields = ('id', 'title', 'body', 'created_at', 'board', 'status')
+
+    def create(self, validated_data):
+        board = self.context.get('board', None)
+        status = self.context.get('status', None)
+        if board is None:
+            raise serializers.ValidationError(
+                'No board provided for this "To Do"'
+            )
+        if status is None:
+            raise serializers.ValidationError(
+                'No status provided for this "To Do"'
+            )
+        todo = Todo.objects.create(board=board, status=status, **validated_data)
+        return todo
