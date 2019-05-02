@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import (
@@ -103,6 +104,11 @@ class TodoDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def get_todo(self, board_id, todo_id):
-        board_todoes = self.get_queryset().filter(board__id=board_id)
-        todo = board_todoes.get(id=todo_id)
+        try:
+            board_todoes = self.get_queryset().filter(board__id=board_id)
+            todo = board_todoes.get(id=todo_id)
+        except Todo.DoesNotExist:
+            raise Http404
+        except TodoBoard.DoesNotExist:
+            raise Http404
         return todo
