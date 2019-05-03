@@ -75,7 +75,11 @@ class TodoListCreateAPIView(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def list(self, request, board_id, *args, **kwargs):
-        todoes = self.get_queryset().filter(board__id=board_id)
+        try:
+            board = TodoBoard.objects.get(pk=board_id)
+        except TodoBoard.DoesNotExist:
+            raise Http404
+        todoes = board.todoes
         serializer = self.serializer_class(todoes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
