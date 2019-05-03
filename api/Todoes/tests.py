@@ -160,3 +160,88 @@ class TodoListCreateAPIViewTests(APITestCase):
         })
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+class TodoDetailAPIViewTests(APITestCase):
+    def test_get_todo_raises_404_on_board_not_found(self):
+        from Todoes.views import TodoDetailAPIView
+        from django.http import Http404
+        todo_detail = TodoDetailAPIView() 
+        todo = create_todo()
+        self.assertRaises(Http404,
+                          todo_detail.get_todo, 
+                          todo.board.id + 1,
+                          todo.id)
+
+    def test_get_todo_raises_404_on_todo_not_found(self):
+        from Todoes.views import TodoDetailAPIView
+        from django.http import Http404
+        todo_detail = TodoDetailAPIView() 
+        todo = create_todo()
+        self.assertRaises(Http404,
+                          todo_detail.get_todo, 
+                          todo.board.id,
+                          todo.id + 1)
+
+    def test_update_todo_successfully_only_if_owner(self):
+        todo = create_todo()
+        owner = todo.board.profile.user
+        self.client.force_authenticate(user=owner)
+        new_todo_data = {
+            'title': 'new todo title :)'
+        }
+        url = reverse('todo-detail', kwargs={
+            'board_id': 1,
+            'todo_id': 1
+        })
+        response = self.client.patch(url, new_todo_data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Todo.objects.get().title, new_todo_data['title'])
+
+    def test_does_not_update_todo_if_not_owner(self):
+        todo = create_todo()
+        other_user_data = {
+            'username': 'any_other_user',
+            'email': 'other_user@email.com',
+            'password': 'greatersuperpassword123'
+        }
+        other_user_profile = create_profile(**other_user_data)
+        requester = other_user_profile.user
+        self.client.force_authenticate(user=requester)
+        new_todo_data = {
+            'title': 'new todo title :)'
+        }
+        url = reverse('todo-detail', kwargs={
+            'board_id': 1,
+            'todo_id': 1
+        })
+        response = self.client.patch(url, new_todo_data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_destroy_todo_successfully_only_if_owner(self):
+        todo = create_todo()
+        owner = todo.board.profile.user
+        self.client.force_authenticate(user=owner)
+        url = reverse('todo-detail', kwargs={
+            'board_id': 1,
+            'todo_id': 1
+        })
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Todo.objects.count(), 0)
+
+    def test_does_not_destroy_todo_if_not_owner(self):
+        todo = create_todo()
+        other_user_data = {
+            'username': 'any_other_user',
+            'email': 'other_user@email.com',
+            'password': 'greatersuperpassword123'
+        }
+        other_user_profile = create_profile(**other_user_data)
+        requester = other_user_profile.user
+        self.client.force_authenticate(user=requester)
+        url = reverse('todo-detail', kwargs={
+            'board_id': 1,
+            'todo_id': 1
+        })
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

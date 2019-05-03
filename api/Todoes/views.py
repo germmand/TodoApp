@@ -111,8 +111,6 @@ class TodoDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         try:
             board_todoes = self.get_queryset().filter(board__id=board_id)
             todo = board_todoes.get(id=todo_id)
-        except Todo.DoesNotExist:
-            raise Http404
-        except TodoBoard.DoesNotExist:
+        except (Todo.DoesNotExist, TodoBoard.DoesNotExist):
             raise Http404
         return todo
