@@ -21,6 +21,11 @@ jobs:
     executor: python3-executor
     steps:
       - checkout
+      - run: 
+          name: "Change ownership for proper caching restoring."
+          command: |
+            sudo chown -R circleci:circleci /usr/local/bin
+            sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:
           key: *api_cache_key
       - run:
