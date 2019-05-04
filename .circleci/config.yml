@@ -1,0 +1,50 @@
+version: 2.1
+
+references:
+  job_defaults: &job_defaults
+    working_directory: ~/TodoApp
+  api_working_directory: &api_working_directory
+    ~/TodoApp/api
+
+executors:
+  python3-executor:
+    docker:
+      - image: circleci/python:3.6.7
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+
+jobs:
+  build-api:
+    <<: *job_defaults
+    executor: python3-executor
+    steps:
+      - checkout
+      - run:
+          name: "Setting up virtual environment."
+          command: |
+            sudo pip install pipenv
+            pipenv install -r requirements.txt
+          working_directory: *api_working_directory
+      - persist_to_workspace:
+          root: *api_working_directory
+          paths: .
+  run-api-tests:
+    <<: *job_defaults
+    executor: python3-executor
+    steps:
+      - attach_workspace:
+          at: *api_working_directory
+      - run:
+          name: "Run api's unit tests."
+          command: |
+            pipenv run python manage.py test
+          working_directory: *api_working_directory
+
+workflows:
+  version: 2.1
+  api_build_and_test:
+    jobs:
+      - build-api 
+      - run-api-tests:
+          requires:
+            - build-api
