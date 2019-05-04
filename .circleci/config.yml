@@ -6,7 +6,7 @@ references:
   api_working_directory: &api_working_directory
     ~/TodoApp/api
   api_cache_key: &api_cache_key
-    deps2-{{ .Branch }}-{{ checksum "api/requirements.txt" }}
+    deps3-{{ .Branch }}-{{ checksum "api/requirements.txt" }}
 
 executors:
   python3-executor:
