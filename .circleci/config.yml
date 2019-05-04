@@ -5,6 +5,8 @@ references:
     working_directory: ~/TodoApp
   api_working_directory: &api_working_directory
     ~/TodoApp/api
+  api_cache_key: &api_cache_key
+    deps2-{{ .Branch }}-{{ checksum "api/requirements.txt" }}
 
 executors:
   python3-executor:
@@ -19,12 +21,20 @@ jobs:
     executor: python3-executor
     steps:
       - checkout
+      - restore_cache:
+          key: *api_cache_key
       - run:
           name: "Setting up virtual environment."
           command: |
             sudo pip install pipenv
             pipenv install -r requirements.txt
           working_directory: *api_working_directory
+      - save_cache:
+          key: *api_cache_key
+          paths:
+            - "./api/.venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages"
       - persist_to_workspace:
           root: *api_working_directory
           paths: .
