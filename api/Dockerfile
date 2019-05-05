@@ -1,8 +1,8 @@
 FROM python:3.6.8
 COPY . /app/api
 WORKDIR /app/api
-RUN sudo apt-get update && \
-    sudo apt-get install python-psycopg2 libpq-dev && \
+RUN apt-get update && \
+    apt-get install -y python-psycopg2 libpq-dev && \
     pip install -r requirements.txt
 ENV APP_PORT 8000
 EXPOSE $APP_PORT

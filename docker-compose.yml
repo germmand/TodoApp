@@ -5,10 +5,16 @@ services:
     build: 
       dockerfile: Dockerfile
       context: ./api
-  ports:
-    - "8000:8000"
-  depends_on:
-    - db
+    environment:
+      PGUSER: postgres
+      PGDATABASE: postgres
+      PGHOST: 'db'
+      PGPASSWORD: ''
+    command: python ./api/manage.py runserver --database=postgresdb
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
   db:
     image: postgres:11
     ports:
