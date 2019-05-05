@@ -96,11 +96,11 @@ DATABASES = {
     },
     'postgresdb': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'postgres'),
-        'USER': os.getenv('POSTGRES_USER', 'postgres'),
-        'HOST': os.getenv('POSTGRES_HOST', 'db'), # 'db' defaults from docker service.
-        'POST': os.getenv('POSTGRES_PORT', 5432),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', '')
+        'NAME': os.getenv('PGDATABASE', 'postgres'),
+        'USER': os.getenv('PGUSER', 'postgres'),
+        'HOST': os.getenv('PGHOST', 'db'), # 'db' defaults from docker service.
+        'PORT': os.getenv('PGPORT', 5432),
+        'PASSWORD': os.getenv('PGPASSWORD', '')
     }
 }
 

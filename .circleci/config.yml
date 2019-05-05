@@ -6,7 +6,7 @@ references:
   api_working_directory: &api_working_directory
     ~/TodoApp/api
   api_cache_key: &api_cache_key
-    deps4-{{ .Branch }}-{{ checksum "api/requirements.txt" }}
+    deps5-{{ .Branch }}-{{ checksum "api/requirements.txt" }}
 
 executors:
   python3-executor:
@@ -14,6 +14,13 @@ executors:
       - image: circleci/python:3.6.7
         environment:
           PIPENV_VENV_IN_PROJECT: true
+          PGHOST: 127.0.0.1
+          PGUSER: root
+          PGDATABASE: circle-test_test
+      - image: circleci/postgres:9.6.9
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle-test_test
 
 jobs:
   build-api:
