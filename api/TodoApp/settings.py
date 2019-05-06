@@ -103,6 +103,8 @@ DATABASES = {
         'PASSWORD': os.getenv('PGPASSWORD', 'test_user_password')
     }
 }
+selected_database = os.getenv('DJANGO_DATABASE', 'default')
+DATABASES['default'] = DATABASES[selected_database]
 
 
 # Password validation

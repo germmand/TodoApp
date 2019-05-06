@@ -6,16 +6,26 @@ services:
       dockerfile: Dockerfile
       context: ./api
     environment:
-      PGUSER: postgres
-      PGDATABASE: postgres
-      PGHOST: 'db'
-      PGPASSWORD: ''
-    command: python ./api/manage.py runserver --database=postgresdb
+      PGUSER: superguy
+      PGPASSWORD: superpassword
+      PGDATABASE: superappdb
+      PGHOST: database
+      # We can have multiple database providers.
+      # We explicitly indicate we want to use Postgres.
+      DJANGO_DATABASE: postgresdb
+    volumes:
+      - ./api:/usr/src/app
     ports:
       - "8000:8000"
     depends_on:
-      - db
-  db:
+      - database
+  database:
     image: postgres:11
+    environment:
+      POSTGRES_USER: superguy
+      POSTGRES_PASSWORD: superpassword
+      POSTGRES_DB: superappdb
+    # We map from 2345 to 5432 just in case
+    # Postgres is already installed in the host machine.
     ports:
-      - "5432:5432"
+      - "2345:5432"
