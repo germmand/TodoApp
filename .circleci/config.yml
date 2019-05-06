@@ -7,6 +7,8 @@ references:
     ~/TodoApp/api
   api_cache_key: &api_cache_key
     deps5-{{ .Branch }}-{{ checksum "api/requirements.txt" }}
+  dockerize_cache_key: &dockerize_cache_key
+    deps5-{{ checksum ".dockerize_version" }}
 
 executors:
   python3-executor:
@@ -53,17 +55,31 @@ jobs:
   run-api-tests:
     <<: *job_defaults
     executor: python3-executor
+    environment:
+      DOCKERIZE_VERSION: v0.3.0
     steps:
       - attach_workspace:
           at: *api_working_directory
+      - run:
+          name: "Setting up Dockerize Version for cache key (workaround)."
+          command: |
+            echo "$DOCKERIZE_VERSION" > .dockerize_version
+      - run:
+          name: "Change ownership for proper caching restoring for Dockerize."
+          command: |
+            sudo chown -R circleci:circleci /usr/local/bin
+      - restore_cache:
+          key: *dockerize_cache_key
       - run:
           name: "Install Dockerize"
           command: >
             wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && 
             sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && 
             rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-          environment:
-            DOCKERIZE_VERSION: v0.3.0
+      - save_cache:
+          key: *dockerize_cache_key
+          paths:
+            - "/usr/local/bin"
       - run:
           name: "Wait for Postgres to be ready to accept connections."
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
