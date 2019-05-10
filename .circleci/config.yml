@@ -5,10 +5,14 @@ references:
     working_directory: ~/TodoApp
   api_working_directory: &api_working_directory
     ~/TodoApp/api
+  webapp_working_directory: &webapp_working_directory
+    ~/TodoApp/webapp
   api_cache_key: &api_cache_key
     deps5-{{ .Branch }}-{{ checksum "api/requirements.txt" }}
   dockerize_cache_key: &dockerize_cache_key
     deps5-{{ checksum ".dockerize_version" }}
+  webapp_deps_cache_key: &webapp_deps_cache_key
+    deps6-{{ .Branch }}-{{ checksum "webapp/yarn.lock" }}
 
 executors:
   python3-executor:
@@ -23,6 +27,9 @@ executors:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle-test_test
+  nodeapp-executor:
+    docker:
+      - image: circleci/node:10.15.3
 
 jobs:
   build-api:
@@ -88,6 +95,44 @@ jobs:
           command: |
             pipenv run python manage.py test
           working_directory: *api_working_directory
+  build-webapp:
+    <<: *job_defaults
+    executor: nodeapp-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: *webapp_deps_cache_key
+      - run:
+          name: "Install Dependencies."
+          command: yarn install
+          working_directory: *webapp_working_directory
+      - save_cache:
+          key: *webapp_deps_cache_key
+          paths:
+            - "./webapp/node_modules"
+      - persist_to_workspace:
+          root: *webapp_working_directory
+          paths: .
+  run-webapp-linter:
+    <<: *job_defaults
+    executor: nodeapp-executor
+    steps:
+      - attach_workspace:
+          at: *webapp_working_directory
+      - run:
+          name: "Verify code through linter."
+          command: yarn lint
+          working_directory: *webapp_working_directory
+  run-webapp-tests:
+    <<: *job_defaults
+    executor: nodeapp-executor
+    steps:
+      - attach_workspace:
+          at: *webapp_working_directory
+      - run:
+          name: "Run unit tests (and integrations tests if any)."
+          command: yarn test
+          working_directory: *webapp_working_directory
 
 workflows:
   version: 2.1
@@ -97,3 +142,12 @@ workflows:
       - run-api-tests:
           requires:
             - build-api
+  webapp_build_and_test:
+    jobs:
+      - build-webapp
+      - run-webapp-linter:
+          requires:
+            - build-webapp
+      - run-webapp-tests:
+          requires:
+            - build-webapp
