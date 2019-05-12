@@ -8,7 +8,7 @@ services:
     volumes:
       # This /usr/src/app is different than Api's.
       - ./webapp:/usr/src/app
-      - /usr/src/app/node_modules
+      - webapp_todo_modules:/usr/src/app/node_modules
     ports:
       - "8080:8080"
     depends_on:
@@ -41,3 +41,6 @@ services:
     # Postgres is already installed in the host machine.
     ports:
       - "2345:5432"
+
+volumes:
+  webapp_todo_modules:
