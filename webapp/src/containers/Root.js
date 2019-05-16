@@ -1,10 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router, Route, Switch, Redirect,
+} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import App from '../App';
+import indexRoutes from '../routes';
 
 // I'm going to leave this here
 // just in case I want to change it.
@@ -14,10 +16,14 @@ const Root = ({ store }) => (
     <Provider store={store}>
         <MuiThemeProvider theme={theme}>
             <Router>
-                <Route
-                    path="/"
-                    component={App}
-                />
+                <Switch>
+                    {indexRoutes.map((prop) => {
+                      if (prop.redirect) {
+                        return <Redirect from={prop.path} to={prop.to} key={prop.key} />;
+                      }
+                      return <Route path={prop.path} component={prop.component} key={prop.key} />;
+                    })}
+                </Switch>
             </Router>
         </MuiThemeProvider>
     </Provider>
