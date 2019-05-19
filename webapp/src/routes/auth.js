@@ -7,6 +7,11 @@ const authRoutes = [
     key: 'loginView',
   },
   {
+    path: '/auth/signup',
+    component: AuthViews.Signup,
+    key: 'signupView',
+  },
+  {
     redirect: true,
     path: '/auth',
     to: '/auth/login',

@@ -10,7 +10,11 @@ import indexRoutes from '../routes';
 
 // I'm going to leave this here
 // just in case I want to change it.
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+});
 
 const Root = ({ store }) => (
     <Provider store={store}>
