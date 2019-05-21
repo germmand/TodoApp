@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+
 import { withStyles } from '@material-ui/core/styles';
 import {
   Paper,
@@ -12,6 +14,10 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
+
+import Actions from '../../../store/actions';
+
+const { userActions } = Actions;
 
 class Login extends React.Component {
     state = {
@@ -106,4 +112,14 @@ Login.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-export default withStyles(styles)(Login);
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+  login: ({ username, password }) => dispatch(userActions.login({ username, password })),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withStyles(styles)(Login));
