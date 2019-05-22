@@ -25,7 +25,6 @@ class Login extends React.Component {
         username: '',
         password: '',
       },
-      isLoading: false,
     };
 
     onChangeUsername = (event) => {
@@ -45,22 +44,14 @@ class Login extends React.Component {
     };
 
     onHandleSignIn = () => {
-      // This is temporary
-      // Just to check that the CircularProgress is
-      // being rendered properly.
-      this.setState({
-        isLoading: true,
-      });
-      setTimeout(() => {
-        this.setState({
-          isLoading: false,
-        });
-      }, 1500);
+      const { values: { username, password } } = this.state;
+      const { login } = this.props;
+      login({ username, password });
     };
 
     render() {
-      const { classes } = this.props;
-      const { values, isLoading } = this.state;
+      const { classes, isLogginIn } = this.props;
+      const { values } = this.state;
 
       return (
             <Paper className={classes.root} elevation={1}>
@@ -86,10 +77,10 @@ class Login extends React.Component {
                             type="password"
                             variant="outlined"
                             value={values.password}
-                            onChange={this.onchangePassword}
+                            onChange={this.onChangePassword}
                         />
                     </div>
-                    {isLoading ? (
+                    {isLogginIn ? (
                         <CircularProgress className={classes.progress} />
                     ) : (
                         <Button
@@ -110,9 +101,12 @@ class Login extends React.Component {
 
 Login.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  login: PropTypes.func.isRequired,
+  isLogginIn: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
+  isLogginIn: state.authenticationReducer.logginIn,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -11,7 +11,7 @@ const login = ({ username, password }, service = usersService) => {
     type: usersConstants.LOGIN_SUCCESS,
     payload: { access, refresh },
   });
-  const failure = error => ({ type: usersConstants.LOGIN_FAILURE, payload: { error } });
+  const failure = errors => ({ type: usersConstants.LOGIN_FAILURE, payload: { errors } });
 
   return (dispatch) => {
     dispatch(request());
@@ -19,8 +19,8 @@ const login = ({ username, password }, service = usersService) => {
       .then(({ access, refresh }) => {
         dispatch(success({ access, refresh }));
       })
-      .catch(({ error }) => {
-        dispatch(failure(error));
+      .catch((error) => {
+        dispatch(failure(error.non_field_errors));
       });
   };
 };

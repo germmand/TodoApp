@@ -1,15 +1,9 @@
 import API from '../../utils/http/API';
 
 const login = ({ username, password }) => API.post('/users/authenticate', { username, password })
-  .then((response) => {
-    console.log('SUCCESS: ');
-    console.log(response);
-    return response;
-  })
+  .then(response => response.data)
   .catch((error) => {
-    console.log('ERROR: ');
-    console.log(error);
-    return error;
+    throw error.response.data;
   });
 
 const usersService = {

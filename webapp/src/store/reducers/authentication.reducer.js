@@ -29,7 +29,7 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         logginIn: false,
-        authError: action.payload.error,
+        authError: action.payload.errors,
       };
     default:
       return state;
