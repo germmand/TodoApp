@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 // Auth Views
-import authRoutes from '../../routes/auth';
+import authRoutes from '../../routes/Auth';
 
 const authViews = (
     <Switch>

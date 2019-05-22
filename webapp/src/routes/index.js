@@ -7,6 +7,11 @@ const indexRoutes = [
     key: 'authLayout',
   },
   {
+    path: '/home',
+    component: Layouts.HomeLayout,
+    key: 'homeLayout',
+  },
+  {
     redirect: true,
     path: '/',
     to: '/auth',

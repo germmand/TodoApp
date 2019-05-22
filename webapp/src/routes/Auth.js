@@ -1,4 +1,4 @@
-import AuthViews from '../views/auth';
+import AuthViews from '../views/Auth';
 
 const authRoutes = [
   {
