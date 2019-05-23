@@ -25,7 +25,12 @@ const login = ({ username, password }, service = usersService) => {
   };
 };
 
+const logout = () => (dispatch) => {
+  dispatch({ type: usersConstants.LOGOUT });
+};
+
 const userActions = {
   login,
+  logout,
 };
 export default userActions;

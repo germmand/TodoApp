@@ -3,10 +3,17 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
 import styles from './styles';
+
+import Actions from '../../../store/actions';
+
+const { userActions } = Actions;
 
 class Dashboard extends React.Component {
     onHandleLogout = () => {
+      const { logout } = this.props;
+      logout();
     };
 
     render() {
@@ -30,6 +37,14 @@ class Dashboard extends React.Component {
 
 Dashboard.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(userActions.logout()),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(withStyles(styles)(Dashboard));
