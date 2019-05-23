@@ -10,6 +10,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+// Redux
+import { connect } from 'react-redux';
+
 // Auth Views
 import authRoutes from '../../routes/Auth';
 
@@ -52,28 +55,49 @@ class AuthLayout extends React.Component {
       }
     };
 
+    onDashboardRedirect = () => {
+      const { history, isLoggedIn } = this.props;
+      if (isLoggedIn) {
+        history.replace('/home/Dashboard');
+      }
+    }
+
+    componentDidMount = () => {
+      // Redirects to dashboard in case
+      // the user is already logged in
+      // on opening/rendering.
+      this.onDashboardRedirect();
+    }
+
+    componentDidUpdate = () => {
+      // Redirects to dashboard in case
+      // the user is already logged in
+      // on action.
+      this.onDashboardRedirect();
+    }
+
     render() {
       const { classes } = this.props;
 
       return (
-            <div>
-                <AppBar position="static">
-                    <Toolbar>
-                        <Typography variant="h6" color="inherit" className={classes.grow}>
-                            TodoApp - Welcome!
-                        </Typography>
-                        <Button variant="outlined" color="inherit" onClick={this.onHandleLoginRoute}>
-                            Login
-                        </Button>
-                        <Button color="inherit" onClick={this.onHandleRegisterRoute}>
-                            Register
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-                <div className={classes.viewContainer}>
-                    {authViews}
-                </div>
+        <div>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h6" color="inherit" className={classes.grow}>
+                        TodoApp - Welcome!
+                    </Typography>
+                    <Button variant="outlined" color="inherit" onClick={this.onHandleLoginRoute}>
+                        Login
+                    </Button>
+                    <Button color="inherit" onClick={this.onHandleRegisterRoute}>
+                        Register
+                    </Button>
+                </Toolbar>
+            </AppBar>
+            <div className={classes.viewContainer}>
+                {authViews}
             </div>
+        </div>
       );
     }
 }
@@ -94,6 +118,14 @@ AuthLayout.propTypes = {
     push: PropTypes.func.isRequired,
     replace: PropTypes.func.isRequired,
   }).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
-export default withStyles(styles)(AuthLayout);
+const mapStateToProps = state => ({
+  isLoggedIn: state.authenticationReducer.isLoggedIn,
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(withStyles(styles)(AuthLayout));
