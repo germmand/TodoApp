@@ -19,8 +19,8 @@ const login = ({ username, password }, service = usersService) => {
       .then(({ access, refresh }) => {
         dispatch(success({ access, refresh }));
       })
-      .catch((error) => {
-        dispatch(failure(error.non_field_errors));
+      .catch((errors) => {
+        dispatch(failure(errors));
       });
   };
 };
