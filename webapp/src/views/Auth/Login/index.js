@@ -13,7 +13,11 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 
+import debounce from 'lodash/debounce';
+import validate from 'validate.js';
+
 import styles from './styles';
+import schema from './schema';
 
 import Actions from '../../../store/actions';
 
@@ -25,22 +29,31 @@ class Login extends React.Component {
         username: '',
         password: '',
       },
+      touched: {
+        username: false,
+        password: false,
+      },
+      errors: {
+        // These are client-side errors.
+        // Server-side errors are handled through Redux.
+        username: null,
+        password: null,
+      },
     };
 
-    onChangeUsername = (event) => {
+    onValidateForm = debounce(() => {
       const { values } = this.state;
-      const { value: username } = event.target;
-      this.setState({
-        values: { ...values, username },
-      });
-    };
+      const newState = { ...this.state };
+      const errors = validate(values, schema);
+      newState.errors = errors || {};
+      this.setState(newState);
+    }, 300);
 
-    onChangePassword = (event) => {
-      const { values } = this.state;
-      const { value: password } = event.target;
-      this.setState({
-        values: { ...values, password },
-      });
+    onChangeField = (field, value) => {
+      const newState = { ...this.state };
+      newState.values[field] = value;
+      newState.touched[field] = true;
+      this.setState(newState, this.onValidateForm);
     };
 
     onHandleSignIn = () => {
@@ -51,7 +64,10 @@ class Login extends React.Component {
 
     render() {
       const { classes, isLogginIn } = this.props;
-      const { values } = this.state;
+      const { values, touched, errors } = this.state;
+
+      const showUsernameErrors = touched.username && errors.username;
+      const showPasswordErrors = touched.password && errors.password;
 
       return (
             <Paper className={classes.root} elevation={1}>
@@ -68,8 +84,15 @@ class Login extends React.Component {
                             type="text"
                             variant="outlined"
                             value={values.username}
-                            onChange={this.onChangeUsername}
+                            onChange={event => this.onChangeField('username', event.target.value)}
                         />
+                        { showUsernameErrors && (
+                            <Typography
+                                className={classes.fieldError}
+                                variant="body2">
+                                {errors.username[0]}
+                            </Typography>
+                        )}
                         <TextField
                             className={classes.textField}
                             label="Password"
@@ -77,8 +100,15 @@ class Login extends React.Component {
                             type="password"
                             variant="outlined"
                             value={values.password}
-                            onChange={this.onChangePassword}
+                            onChange={event => this.onChangeField('password', event.target.value)}
                         />
+                        { showPasswordErrors && (
+                            <Typography
+                                className={classes.fieldError}
+                                variant="body2">
+                                {errors.password[0]}
+                            </Typography>
+                        )}
                     </div>
                     {isLogginIn ? (
                         <CircularProgress className={classes.progress} />

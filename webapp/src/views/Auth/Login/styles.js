@@ -14,6 +14,11 @@ export default theme => ({
     marginTop: theme.spacing.unit * 2,
     width: 500,
   },
+  fieldError: {
+    color: '#ED4740',
+    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit,
+  },
   content: {
     display: 'flex',
     flexDirection: 'column',
