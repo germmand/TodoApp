@@ -15,7 +15,7 @@ export default theme => ({
     width: 500,
   },
   fieldError: {
-    color: '#ED4740',
+    color: theme.palette.danger.main,
     marginBottom: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit,
   },
