@@ -163,7 +163,8 @@ const mapDispatchToProps = dispatch => ({
   login: ({ username, password }) => dispatch(userActions.login({ username, password })),
 });
 
+export const RawLogin = withStyles(styles)(Login);
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles(styles)(Login));
+)(RawLogin);
