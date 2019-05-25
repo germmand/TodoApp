@@ -4,6 +4,18 @@ export default theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
   },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   textField: {
     width: '100%',
     '& + &': {
@@ -18,12 +30,6 @@ export default theme => ({
     color: theme.palette.danger.main,
     marginBottom: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit,
-  },
-  content: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   signInButton: {
     marginTop: theme.spacing.unit * 2,
