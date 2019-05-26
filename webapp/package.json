@@ -4,7 +4,7 @@
   "author": "Germán Aguilera",
   "description": "A simple TodoApp built with React.",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "build": "webpack --mode production",
     "start": "webpack-dev-server --open --mode development",
     "lint": "eslint .",

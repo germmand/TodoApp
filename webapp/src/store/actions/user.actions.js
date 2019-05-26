@@ -13,6 +13,10 @@ const login = ({ username, password }, service = usersService) => {
   });
   const failure = errors => ({ type: usersConstants.LOGIN_FAILURE, payload: { errors } });
 
+  login.request = request;
+  login.success = success;
+  login.failure = failure;
+
   return (dispatch) => {
     dispatch(request());
     return service.login({ username, password })
