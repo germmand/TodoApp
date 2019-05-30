@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServerAuthErrors Component renders ServerAuthErrors component correctly 1`] = `
+<div
+  className="MuiPaper-root-2 MuiPaper-elevation1-5 MuiPaper-rounded-3 ServerAuthErrors-root-1 root-container"
+>
+  <nav
+    className="MuiList-root-29 MuiList-padding-30 MuiList-subheader-32"
+  >
+    <div
+      className="MuiListSubheader-root-33 MuiListSubheader-sticky-38 MuiListSubheader-gutters-36"
+    >
+      Server responded with some errors:
+    </div>
+    <li
+      className="MuiListItem-root-39 MuiListItem-default-42 MuiListItem-gutters-47 MuiListItem-divider-46"
+      disabled={false}
+    >
+      <div
+        className="MuiListItemIcon-root-51"
+      >
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root-52"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M0 0h24v24H0z"
+            fill="none"
+          />
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+          />
+        </svg>
+      </div>
+      <div
+        className="MuiListItemText-root-61"
+      >
+        <span
+          className="MuiTypography-root-67 MuiTypography-subheading-74 MuiListItemText-primary-64"
+        >
+          Credentials
+        </span>
+        <p
+          className="MuiTypography-root-67 MuiTypography-body1-76 MuiTypography-colorTextSecondary-100 MuiListItemText-secondary-65"
+        >
+          No account was found with given credentials.
+        </p>
+      </div>
+    </li>
+  </nav>
+</div>
+`;
