@@ -86,10 +86,19 @@ class AuthLayout extends React.Component {
                     <Typography variant="h6" color="inherit" className={classes.grow}>
                         TodoApp - Welcome!
                     </Typography>
-                    <Button variant="outlined" color="inherit" onClick={this.onHandleLoginRoute}>
+                    <Button
+                        id="loginButton"
+                        variant="outlined"
+                        color="inherit"
+                        onClick={this.onHandleLoginRoute}
+                    >
                         Login
                     </Button>
-                    <Button color="inherit" onClick={this.onHandleRegisterRoute}>
+                    <Button
+                        id="signupButton"
+                        color="inherit"
+                        onClick={this.onHandleRegisterRoute}
+                    >
                         Register
                     </Button>
                 </Toolbar>
@@ -125,7 +134,9 @@ const mapStateToProps = state => ({
   isLoggedIn: state.authenticationReducer.isLoggedIn,
 });
 
+export const RawAuthLayout = withStyles(styles)(AuthLayout);
+
 export default connect(
   mapStateToProps,
   null,
-)(withStyles(styles)(AuthLayout));
+)(RawAuthLayout);

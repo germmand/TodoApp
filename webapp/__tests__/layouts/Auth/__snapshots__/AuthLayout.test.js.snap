@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Authentication Layout matches snapshot 1`] = `
+<div>
+  <header
+    className="MuiPaper-root-12 MuiPaper-elevation4-18 MuiAppBar-root-3 MuiAppBar-positionStatic-7 MuiAppBar-colorPrimary-10"
+  >
+    <div
+      className="MuiToolbar-root-39 MuiToolbar-regular-41 MuiToolbar-gutters-40"
+    >
+      <h6
+        className="MuiTypography-root-43 MuiTypography-h6-60 MuiTypography-colorInherit-72 AuthLayout-grow-1 grow-auth-layout-class"
+      >
+        TodoApp - Welcome!
+      </h6>
+      <button
+        className="MuiButtonBase-root-105 MuiButton-root-79 MuiButton-outlined-87 MuiButton-colorInherit-100"
+        disabled={false}
+        id="loginButton"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-80"
+        >
+          Login
+        </span>
+        <span
+          className="MuiTouchRipple-root-108"
+        />
+      </button>
+      <button
+        className="MuiButtonBase-root-105 MuiButton-root-79 MuiButton-text-81 MuiButton-flat-84 MuiButton-colorInherit-100"
+        disabled={false}
+        id="signupButton"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-80"
+        >
+          Register
+        </span>
+        <span
+          className="MuiTouchRipple-root-108"
+        />
+      </button>
+    </div>
+  </header>
+  <div
+    className="AuthLayout-viewContainer-2 view-container-auth-layout-class"
+  />
+</div>
+`;
