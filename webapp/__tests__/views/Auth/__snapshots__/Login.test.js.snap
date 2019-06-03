@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login component matches snapshot 1`] = `
+<div
+  className="Login-container-2 container-class"
+>
+  <div
+    className="MuiPaper-root-10 MuiPaper-elevation1-13 MuiPaper-rounded-11 Login-root-1 root-class"
+  >
+    <form
+      className="Login-content-3 content-class"
+    >
+      <h3
+        className="MuiTypography-root-37 MuiTypography-h5-53"
+      >
+        Welcome back!
+      </h3>
+      <hr
+        className="MuiDivider-root-73 Login-topDivider-8 topDivider-class"
+      />
+      <div
+        className="Login-fields-5 fields-class"
+      >
+        <div
+          className="MuiFormControl-root-78 Login-textField-4 textField-class"
+        >
+          <label
+            className="MuiFormLabel-root-93 MuiInputLabel-root-82 MuiInputLabel-formControl-87 MuiInputLabel-animated-90 MuiInputLabel-outlined-92"
+            data-shrink={false}
+          >
+            Username
+          </label>
+          <div
+            className="MuiInputBase-root-113 MuiOutlinedInput-root-100 MuiInputBase-formControl-114"
+            onClick={[Function]}
+          >
+            <fieldset
+              aria-hidden={true}
+              className="MuiPrivateNotchedOutline-root-130 MuiOutlinedInput-notchedOutline-107"
+              style={
+                Object {
+                  "paddingLeft": 8,
+                }
+              }
+            >
+              <legend
+                className="MuiPrivateNotchedOutline-legend-131"
+                style={
+                  Object {
+                    "width": 0.01,
+                  }
+                }
+              >
+                <span
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "&#8203;",
+                    }
+                  }
+                />
+              </legend>
+            </fieldset>
+            <input
+              aria-invalid={false}
+              className="MuiInputBase-input-123 MuiOutlinedInput-input-108"
+              disabled={false}
+              name="username"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="MuiFormControl-root-78 Login-textField-4 textField-class"
+        >
+          <label
+            className="MuiFormLabel-root-93 MuiInputLabel-root-82 MuiInputLabel-formControl-87 MuiInputLabel-animated-90 MuiInputLabel-outlined-92"
+            data-shrink={false}
+          >
+            Password
+          </label>
+          <div
+            className="MuiInputBase-root-113 MuiOutlinedInput-root-100 MuiInputBase-formControl-114"
+            onClick={[Function]}
+          >
+            <fieldset
+              aria-hidden={true}
+              className="MuiPrivateNotchedOutline-root-130 MuiOutlinedInput-notchedOutline-107"
+              style={
+                Object {
+                  "paddingLeft": 8,
+                }
+              }
+            >
+              <legend
+                className="MuiPrivateNotchedOutline-legend-131"
+                style={
+                  Object {
+                    "width": 0.01,
+                  }
+                }
+              >
+                <span
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "&#8203;",
+                    }
+                  }
+                />
+              </legend>
+            </fieldset>
+            <input
+              aria-invalid={false}
+              className="MuiInputBase-input-123 MuiOutlinedInput-input-108 MuiInputBase-inputType-126"
+              disabled={false}
+              name="password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <button
+        className="MuiButtonBase-root-158 MuiButton-root-132 MuiButton-contained-143 MuiButton-containedPrimary-144 MuiButton-raised-146 MuiButton-raisedPrimary-147 MuiButton-sizeLarge-156 Login-signInButton-7 signInButton-class"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-133"
+        >
+          Sign in now!
+        </span>
+        <span
+          className="MuiTouchRipple-root-161"
+        />
+      </button>
+    </form>
+  </div>
+</div>
+`;

@@ -27,7 +27,7 @@ export default theme => ({
     width: 500,
   },
   fieldError: {
-    color: theme.palette.danger.main,
+    color: theme.palette.danger !== undefined ? theme.palette.danger.main : '#ED4740',
     marginBottom: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit,
   },

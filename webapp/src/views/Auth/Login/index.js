@@ -102,6 +102,7 @@ class Login extends React.Component {
                         />
                         { showUsernameErrors && (
                             <Typography
+                                id="usernameFieldError"
                                 className={classes.fieldError}
                                 variant="body2">
                                 {errors.username[0]}
@@ -118,6 +119,7 @@ class Login extends React.Component {
                         />
                         { showPasswordErrors && (
                             <Typography
+                                id="passwordFieldError"
                                 className={classes.fieldError}
                                 variant="body2">
                                 {errors.password[0]}
